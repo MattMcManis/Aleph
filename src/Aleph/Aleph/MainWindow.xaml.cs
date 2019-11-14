@@ -336,35 +336,40 @@ namespace Aleph
         /// <summary>
         /// Info Button
         /// </summary>
+        public static InfoWindow infoWindow;
+        private Boolean IsInfoWindowOpened = false;
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-@"Aleph - Hebrew Numerals Converter
-Copyright © 2019 Matt McManis
-https://github.com/MattMcManis/Aleph
-mattmcmanis@outlook.com
+            OpenInfoWindow();
+        }
+        public void OpenInfoWindow()
+        {
+            // Check if Window is already open
+            if (IsInfoWindowOpened) return;
 
-Fonts Noto Sans KR & Noto Serif Hebrew © Google Inc.
+            // Start Window
+            infoWindow = new InfoWindow();
 
-Noto is a trademark of Google Inc. Noto fonts are open source. 
-All Noto fonts are published under the SIL Open Font License, 
-Version 1.1. Language data and some sample texts are from the 
-Unicode CLDR project.
+            // Only allow 1 Window instance
+            infoWindow.ContentRendered += delegate { IsInfoWindowOpened = true; };
+            infoWindow.Closed += delegate { IsInfoWindowOpened = false; };
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+            // Position Relative to MainWindow
+            // MainWindow Smaller
+            if (infoWindow.Width > Width)
+            {
+                infoWindow.Left = Left - ((infoWindow.Width - Width) / 2);
+            }
+            // MainWindow Larger
+            else
+            {
+                infoWindow.Left = Math.Max((Left + (Width - infoWindow.Width) / 2), Left);
+            }
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+            infoWindow.Top = Math.Max((Top + (Height - infoWindow.Height) / 2), Top);
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see http://www.gnu.org/licenses/.
-"
-);
+            // Open Window
+            infoWindow.Show();
         }
 
         /// <summary>

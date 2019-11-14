@@ -208,6 +208,25 @@ namespace Aleph
             }
         }
 
+        // --------------------------------------------------
+        // Info
+        // --------------------------------------------------
+        // Text
+        private string _Info_Text = string.Empty;
+        public string Info_Text
+        {
+            get { return _Info_Text; }
+            set
+            {
+                if (_Info_Text == value)
+                {
+                    return;
+                }
+
+                _Info_Text = value;
+                OnPropertyChanged("Info_Text");
+            }
+        }
 
         // --------------------------------------------------
         // Arabic Numerals - TextBox
