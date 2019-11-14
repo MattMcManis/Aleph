@@ -194,7 +194,7 @@ namespace Aleph
 
         // Hebrew Output
         public static string output { get; set; } // Final Hebrew Output
-        public static string outputBackup { get; set; } // Before being filtered
+        //public static string outputBackup { get; set; } // Before being filtered
 
         /// <summary>
         /// Arabic Numerals Textbox

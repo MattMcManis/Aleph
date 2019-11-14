@@ -127,7 +127,7 @@ namespace Aleph
             // -------------------------
             // Create a backup of the result before being filtered, 
             // used to revert changes with checkbox
-            MainWindow.outputBackup = result; 
+            //MainWindow.outputBackup = result; 
 
             // Filter Number 15 if checkbox is checked
             if (VM.MainView.Filter_15_IsChecked == true)
