@@ -329,7 +329,7 @@ namespace Aleph
             // Replace Ending with quotation mark "
             // -------------------------
             // 16
-            else if (input.EndsWith("י\"ו"))
+            if (input.EndsWith("י\"ו"))
             {
                 input = Regex.Replace(input, "(" + "י\"ו" + ")", "ט\"ז");
             }
