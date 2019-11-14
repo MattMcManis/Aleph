@@ -85,11 +85,11 @@
             <TextBox x:Name="tbxArabicNumerals"
                  FontFamily="Noto Sans KR Regular"
                  Margin="0,0,0,0" 
-                 Padding="12,9,12,9"
+                 Padding="12,8,12,9"
                  TextWrapping="Wrap"
                  TextAlignment="Left"
                  Text="{Binding MainView.ArabicNumerals_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 FontSize="20" 
+                 FontSize="{Binding MainView.Arabic_FontSize}" 
                  TextChanged="tbxArabicNumerals_TextChanged" 
                  KeyDown="tbxArabicNumerals_KeyDown"
                  Grid.Column="1" >
@@ -127,7 +127,7 @@
                  TextWrapping="Wrap"
                  IsReadOnly="True"
                  Text="{Binding MainView.HebrewNumerals_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 FontSize="24"
+                 FontSize="{Binding MainView.Hebrew_FontSize}" 
                  TextAlignment="Right" 
                  TextChanged="tbxHebrewNumerals_TextChanged">
                 <TextBox.Resources>
@@ -204,6 +204,40 @@
               Height="40"
               VerticalAlignment="Bottom" 
               Grid.Column="1">
+
+            <!-- Font Size -->
+            <Slider x:Name="slFontSize"
+                    Margin="0,0,0,10"
+                    IsMoveToPointEnabled="True"
+                    Minimum="15"
+                    Maximum="60" 
+                    Value="22"
+                    IsSnapToTickEnabled="True"
+                    TickFrequency="1"
+                    PreviewMouseUp="slFontSize_PreviewMouseUp"
+                    MouseDoubleClick="slFontSize_MouseDoubleClick"
+                    Height="18" 
+                    VerticalAlignment="Bottom"
+                    ToolTipService.InitialShowDelay="500"
+                    ToolTipService.ShowOnDisabled="True"
+                    ToolTip="Change text size."
+                    HorizontalAlignment="Left" 
+                    Width="70"
+                />
+            <TextBox x:Name="tbxFontSize"
+                     Text="{Binding Value, ElementName=slFontSize, UpdateSourceTrigger=PropertyChanged}" 
+                     TextWrapping="Wrap" 
+                     Margin="76,0,0,8"
+                     Padding="2,0,2,0" 
+                     Height="22" 
+                     VerticalAlignment="Bottom"
+                     ToolTipService.InitialShowDelay="500"
+                     ToolTipService.ShowOnDisabled="True"
+                     ToolTip="Display text inline." 
+                     HorizontalAlignment="Left"
+                     Width="30" 
+                     TextChanged="tbxFontSize_TextChanged"
+                 />
 
             <!-- Filter 15 -->
             <CheckBox x:Name="cbxFilter_15" 

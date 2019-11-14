@@ -246,6 +246,44 @@ namespace Aleph
         }
 
         // --------------------------------------------------
+        // Font Size - Arabic
+        // --------------------------------------------------
+        public double _Arabic_FontSize;
+        public double Arabic_FontSize
+        {
+            get { return _Arabic_FontSize; }
+            set
+            {
+                if (_Arabic_FontSize == value)
+                {
+                    return;
+                }
+
+                _Arabic_FontSize = value;
+                OnPropertyChanged("Arabic_FontSize");
+            }
+        }
+
+        // --------------------------------------------------
+        // Font Size - Hebrew
+        // --------------------------------------------------
+        public double _Hebrew_FontSize;
+        public double Hebrew_FontSize
+        {
+            get { return _Hebrew_FontSize; }
+            set
+            {
+                if (_Hebrew_FontSize == value)
+                {
+                    return;
+                }
+
+                _Hebrew_FontSize = value;
+                OnPropertyChanged("Hebrew_FontSize");
+            }
+        }
+
+        // --------------------------------------------------
         // Filter 15 - CheckBox
         // --------------------------------------------------
         private bool _Filter_15_IsChecked;

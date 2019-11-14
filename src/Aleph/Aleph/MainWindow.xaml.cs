@@ -138,6 +138,34 @@ namespace Aleph
                     WindowState = WindowState.Maximized;
                 }
             }
+
+            // -------------------------
+            // Font Size
+            // -------------------------
+            // Auto Sort
+            //
+            // Safeguard Against Corrupt Saved Settings
+            try
+            {
+                // First time use
+                if (Settings.Default.FontSize != 0)
+                {
+                    slFontSize.Value = Settings.Default.FontSize;
+
+                    VM.MainView.Arabic_FontSize = slFontSize.Value; // slider uses this as default
+                    VM.MainView.Hebrew_FontSize = slFontSize.Value * 1.2;
+                }
+                // Default
+                else
+                {
+                    //slFontSize.Value = 22;
+                }
+                
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -397,6 +425,34 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
             {
                 ArabicNumeralsAsync();
             }
+        }
+
+        /// <summary>
+        /// Font Size - Slider
+        /// </summary>
+        // Double Click
+        private void slFontSize_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Return to Default Size
+            slFontSize.Value = 22;
+        }
+        // Mouse Up
+        private void slFontSize_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            // Change Font Size
+            VM.MainView.Arabic_FontSize = slFontSize.Value; // slider uses this as default
+            VM.MainView.Hebrew_FontSize = slFontSize.Value * 1.2;
+
+            Settings.Default.FontSize = VM.MainView.Arabic_FontSize;
+            Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Font Size - TextBox
+        /// </summary>
+        private void tbxFontSize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
     }
