@@ -42,7 +42,10 @@ namespace Aleph
             // Count digits in BigInteger Number
             BigInteger digits = n.ToString().Length;
 
-            // Digit in Number by place (ones, tens, hundreds)
+            // Digit in the Number by Place (ones, tens, hundreds, thousands)
+            // e.g. 1234
+            //       ^^ (3 is in the tens place)
+            //       ^  (2 is in the hundreds place)
             BigInteger nPlaceDigit = 0;
 
             // Hebrew Place multiplier
@@ -53,7 +56,7 @@ namespace Aleph
 
             // -------------------------
             // Loop through each digit
-            // Each pass increase the number place multiplier by 10
+            // Each pass increase the number place multiplier by x10
             // e.g. 1234
             //      ^^^^ pass 1 is x1 (ones)
             //      ^^^  pass 2 is x10 (tens)
@@ -73,8 +76,7 @@ namespace Aleph
                     multiplier = (multiplier * 10);
                 }
 
-                // Digit Place in the Number
-                // e.g. Ones, Tens, Hundreds
+                // Digit in the Number by Place
                 nPlaceDigit = (n / multiplier) % 10;
 
                 // Append to front with Insert, don't use +=
@@ -125,10 +127,6 @@ namespace Aleph
             // -------------------------
             // Filter
             // -------------------------
-            // Create a backup of the result before being filtered, 
-            // used to revert changes with checkbox
-            //MainWindow.outputBackup = result; 
-
             // Filter Number 15 if checkbox is checked
             if (VM.MainView.Filter_15_IsChecked == true)
             {
@@ -289,7 +287,6 @@ namespace Aleph
             // -------------------------
             // Replace regular occurances
             // -------------------------
-            // 15
             if (input.Contains("יה"))
             {
                 input = Regex.Replace(input, "(" + "יה" + ")", "טו");
@@ -298,7 +295,6 @@ namespace Aleph
             // -------------------------
             // Replace Ending with quotation mark "
             // -------------------------
-            // 15
             if (input.EndsWith("י\"ה"))
             {
                 input = Regex.Replace(input, "(" + "י\"ה" + ")", "ט\"ו");
@@ -319,7 +315,6 @@ namespace Aleph
             // -------------------------
             // Replace regular occurances
             // -------------------------
-            // 16
             if (input.Contains("יו"))
             {
                 input = Regex.Replace(input, "(" + "יו" + ")", "טז");
@@ -328,7 +323,6 @@ namespace Aleph
             // -------------------------
             // Replace Ending with quotation mark "
             // -------------------------
-            // 16
             if (input.EndsWith("י\"ו"))
             {
                 input = Regex.Replace(input, "(" + "י\"ו" + ")", "ט\"ז");
