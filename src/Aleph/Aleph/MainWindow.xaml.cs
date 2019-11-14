@@ -259,7 +259,7 @@ namespace Aleph
         /// </summary>
         public static String FilterNonNumericCharacters(string input)
         {
-            Regex rgx = new Regex("[^0-9 -]");
+            Regex rgx = new Regex("[^0-9+ -]|\\s+");
             return rgx.Replace(input, "");
         }
 
