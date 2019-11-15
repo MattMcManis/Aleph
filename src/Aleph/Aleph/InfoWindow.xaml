@@ -32,6 +32,7 @@
         Loaded="Window_Loaded" 
         Closing="Window_Closing"  
         
+        ResizeMode="CanMinimize" 
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"
         
