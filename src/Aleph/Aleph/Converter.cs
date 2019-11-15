@@ -42,17 +42,19 @@ namespace Aleph
             // Count digits in BigInteger Number
             BigInteger digits = n.ToString().Length;
 
-            // Digit in the Number by Place (ones, tens, hundreds, thousands)
+            // Digit in the Number by Place
             // e.g. 1234
-            //       ^^ (3 is in the tens place)
-            //       ^  (2 is in the hundreds place)
+            //      ^^^^ 4 is in the ones place
+            //      ^^^  3 is in the tens place
+            //      ^^   2 is in the hundreds place
+            //      ^    1 is in the thousands place (reset back to ones place)
             BigInteger nPlaceDigit = 0;
 
             // Hebrew Place multiplier
             BigInteger multiplier = 1;
 
             // Loop Counter
-            BigInteger loopCount = 0;
+            int loopCount = 0;
 
             // -------------------------
             // Loop through each digit
@@ -65,13 +67,11 @@ namespace Aleph
             // -------------------------
             for (BigInteger i = 0; i < digits; i++)
             {
-                loopCount++;
-
                 // Increase the multiplier x10 each pass
                 // e.g. 1 x 10 = 10 multipier
                 //      10 x 10 = 100 multipier
                 //      100 x 10 = 1000 multipier
-                if (loopCount > 1)
+                if (loopCount > 0)
                 {
                     multiplier = (multiplier * 10);
                 }
@@ -80,22 +80,21 @@ namespace Aleph
                 nPlaceDigit = (n / multiplier) % 10;
 
                 // Append to front with Insert, don't use +=
-                result = result.Insert(0, Convert((int)nPlaceDigit, loopCount));
+                result = result.Insert(0, numerals[loopCount, (int)nPlaceDigit]);
 
                 // -------------------------
                 // Convert the next 3 digits
                 // -------------------------
-                if (loopCount > 3)
+                if (loopCount == 3)
                 {
                     // Reset the loop counter
-                    loopCount = 1;
-
-                    // Insert Geresh (Apostrophe)
-                    result = result.Insert(0, "׳");
+                    loopCount = 0;
 
                     // Run the Convert again
-                    result = result.Insert(0, Convert((int)nPlaceDigit, loopCount));
+                    result = result.Insert(0, numerals[loopCount, (int)nPlaceDigit]);
                 }
+
+                loopCount++;
             }
 
             // -------------------------
@@ -131,134 +130,16 @@ namespace Aleph
 
 
         /// <summary>
-        /// Convert Digits
+        /// Hebrew Numerals
         /// </summary>
-        public static String Convert(int nPlaceDigit, BigInteger loopCount)
+        public static string[,] numerals = new string[,]
         {
-            // One
-            // 1
-            if (loopCount == 1)
-            {
-                return Ones(nPlaceDigit);
-            }
-            // Ten
-            // 10
-            else if (loopCount == 2)
-            {
-                return Tens(nPlaceDigit);
-            }
-            // Hundred
-            // 100
-            else if (loopCount == 3)
-            {
-                return Hundreds(nPlaceDigit);
-            }
-            // None
-            // (Loop Count 4+)
-            else
-            {
-                return string.Empty;
-            }
-        }
-
-
-        /// <summary>
-        /// Ones
-        /// </summary>
-        public static String Ones(int npd)
-        {
-            switch (npd)
-            {
-                case 1:
-                    return "א";
-                case 2:
-                    return "ב";
-                case 3:
-                    return "ג";
-                case 4:
-                    return "ד";
-                case 5:
-                    return "ה";
-                case 6:
-                    return "ו";
-                case 7:
-                    return "ז";
-                case 8:
-                    return "ח";
-                case 9:
-                    return "ט";
-                case 0:
-                    return string.Empty;
-                default:
-                    return string.Empty;
-            }
-        }
-
-
-        /// <summary>
-        /// Tens
-        /// </summary>
-        public static String Tens(int npd)
-        {
-            switch (npd)
-            {
-                case 1:
-                    return "י";
-                case 2:
-                    return "כ";
-                case 3:
-                    return "ל";
-                case 4:
-                    return "מ";
-                case 5:
-                    return "נ";
-                case 6:
-                    return "ס";
-                case 7:
-                    return "ע";
-                case 8:
-                    return "פ";
-                case 9:
-                    return "צ";
-                case 0:
-                    return string.Empty;
-                default:
-                    return string.Empty;
-            }
-        }
-
-
-        /// <summary>
-        /// Hundreds
-        /// </summary>
-        public static String Hundreds(int npd)
-        {
-            switch (npd)
-            {
-                case 1:
-                    return "ק";
-                case 2:
-                    return "ר";
-                case 3:
-                    return "ש";
-                case 4:
-                    return "ת";
-                case 5:
-                    return "תק";
-                case 6:
-                    return "תר";
-                case 7:
-                    return "תש";
-                case 8:
-                    return "תת";
-                case 9:
-                    return "תתק";
-                case 0:
-                    return string.Empty;
-                default:
-                    return string.Empty;
-            }
-        }
+            //0   1    2    3    4     5     6     7      8     9
+            {"", "א", "ב", "ג", "ד",  "ה",  "ו",  "ז",  "ח",  "ט", },  // x1
+            {"", "י", "כ", "ל", "מ",  "נ",  "ס",  "ע",  "פ",  "צ", },  // x10
+            {"", "ק", "ר", "ש", "ת",  "תק", "תר", "תש", "תת", "תתק" }, // x100
+            {"׳", "׳", "׳", "׳", "׳",  "׳",  "׳",  "׳",  "׳",  "׳" }   // x1000
+        };
 
 
         /// <summary>
