@@ -111,6 +111,9 @@ namespace Aleph
                 n != 80 &&
                 n != 90 &&
                 n != 100 &&
+                n != 200 &&
+                n != 300 &&
+                n != 400 &&
                 !result.EndsWith("׳") // Hebrew result must not end with Geresh ׳ for thousand 000
                 )
             {
