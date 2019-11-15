@@ -299,6 +299,7 @@ namespace Aleph
             // Only allow Numbers
             // Deny Symbols (Shift + Number)
             if (!(e.Key >= System.Windows.Input.Key.D0 && e.Key <= System.Windows.Input.Key.D9) ||
+                (e.Key >= System.Windows.Input.Key.NumPad0 && e.Key <= System.Windows.Input.Key.NumPad9) ||
                 e.Key == System.Windows.Input.Key.Back ||
                 e.Key == System.Windows.Input.Key.Delete ||
                 (Keyboard.IsKeyDown(System.Windows.Input.Key.LeftShift) && (e.Key >= System.Windows.Input.Key.D9)) ||
