@@ -34,73 +34,53 @@ namespace Aleph
         /// <summary>
         /// Convert to Hebrew
         /// </summary>
-        public static string Hebrew(BigInteger n)
+        public static string Hebrew(string n)
         {
             // Result
             string result = string.Empty;
 
-            // Count digits in BigInteger Number
-            BigInteger digits = n.ToString().Length;
+            // Split Number into an Array of Digits
+            List<BigInteger> digits = n.Reverse().Select(x => BigInteger.Parse(x.ToString())).ToList();
 
-            // Digit in the Number by Place
-            // e.g. 1234
-            //      ^^^^ 4 is in the ones place
-            //      ^^^  3 is in the tens place
-            //      ^^   2 is in the hundreds place
-            //      ^    1 is in the thousands place (reset back to ones place)
-            BigInteger nPlaceDigit = 0;
-
-            // Hebrew Place multiplier
-            BigInteger multiplier = 1;
-
-            // Loop Counter
-            int loopCount = 0;
+            // Hebrew Multiplier
+            int multiplier = 0;
 
             // -------------------------
             // Loop through each digit
-            // Each pass increase the number place multiplier by x10
             // e.g. 1234
-            //      ^^^^ pass 1 is x1 (ones)
-            //      ^^^  pass 2 is x10 (tens)
-            //      ^^   pass 3 is x100 (hundreds)
-            //      ^    pass 4 is x1000 (thousands, reset, geresh ׳)
+            //      ^^^^ pass 1 is ones
+            //      ^^^  pass 2 is tens
+            //      ^^   pass 3 is hundreds
+            //      ^    pass 4 is thousands, reset, geresh ׳
             // -------------------------
-            for (BigInteger i = 0; i < digits; i++)
+            for (int i = 0; i < digits.Count; i++)
             {
-                // Increase the multiplier x10 each pass
-                // e.g. 1 x 10 = 10 multipier
-                //      10 x 10 = 100 multipier
-                //      100 x 10 = 1000 multipier
-                if (loopCount > 0)
-                {
-                    multiplier = (multiplier * 10);
-                }
-
-                // Digit in the Number by Place
-                nPlaceDigit = (n / multiplier) % 10;
-
                 // Append to front with Insert, don't use +=
-                result = result.Insert(0, numerals[loopCount, (int)nPlaceDigit]);
+                result = result.Insert(0, numerals[multiplier, (int)digits[i]]);
 
                 // -------------------------
                 // Convert the next 3 digits
                 // -------------------------
-                if (loopCount == 3)
+                if (multiplier == 3)
                 {
-                    // Reset the loop counter
-                    loopCount = 0;
+                    // Reset the multiplier
+                    multiplier = 0;
 
                     // Run the Convert again
-                    result = result.Insert(0, numerals[loopCount, (int)nPlaceDigit]);
+                    result = result.Insert(0, numerals[multiplier, (int)digits[i]]);
                 }
 
-                loopCount++;
+                // Increase the multiplier x10 each pass
+                // e.g. loop 0 = 1 multipier
+                //      loop 1 = 10 multipier
+                //      loop 2 = 100 multipier
+                //      loop 3 = 1000 multipier
+                multiplier++;
             }
 
             // -------------------------
             // Insert quote " before last character
             // -------------------------
-            // Prevents 10-400 from having a quote " character
             if (result.Length > 1 &&  // Hebrew digit count must be greater than 1
                 !result.EndsWith("׳") // Hebrew result must not end with Geresh ׳ for thousand 000
                 )
@@ -135,10 +115,10 @@ namespace Aleph
         public static string[,] numerals = new string[,]
         {
             //0   1    2    3    4    5    6    7    8    9
-            {"", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", },     // x1
-            {"", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", },     // x10
+            {"", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", },      // x1
+            {"", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", },      // x10
             {"", "ק", "ר", "ש", "ת", "תק", "תר", "תש", "תת", "תתק" }, // x100
-            {"׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳" }      // x1000
+            {"׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳" }       // x1000
         };
 
 
