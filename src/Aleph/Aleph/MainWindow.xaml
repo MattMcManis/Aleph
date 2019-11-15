@@ -233,7 +233,7 @@
                      VerticalAlignment="Bottom"
                      ToolTipService.InitialShowDelay="500"
                      ToolTipService.ShowOnDisabled="True"
-                     ToolTip="Display text inline." 
+                     ToolTip="Font size." 
                      HorizontalAlignment="Left"
                      Width="30" 
                      TextChanged="tbxFontSize_TextChanged"
