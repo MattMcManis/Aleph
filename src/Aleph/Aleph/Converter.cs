@@ -39,14 +39,16 @@ namespace Aleph
             // Result
             string result = string.Empty;
 
-            // Split Number into an Array of Digits
-            List<BigInteger> digits = n.Reverse().Select(x => BigInteger.Parse(x.ToString())).ToList();
+            // Split number into an array of digits
+            List<BigInteger> digits = n.Reverse()
+                                       .Select(x => BigInteger.Parse(x.ToString()))
+                                       .ToList();
 
             // Hebrew Multiplier
             int multiplier = 0;
 
             // -------------------------
-            // Loop through each digit
+            // Loop through number array, reading each digit
             // e.g. 1234
             //      ^^^^ pass 1 is ones
             //      ^^^  pass 2 is tens
@@ -55,12 +57,10 @@ namespace Aleph
             // -------------------------
             for (int i = 0; i < digits.Count; i++)
             {
-                // Append to front with Insert, don't use +=
+                // Append to front with Insert (don't use +=)
                 result = result.Insert(0, numerals[multiplier, (int)digits[i]]);
 
-                // -------------------------
                 // Convert the thousands place digit
-                // -------------------------
                 if (multiplier == 3)
                 {
                     // Reset the multiplier
