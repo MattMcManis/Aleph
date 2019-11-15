@@ -250,9 +250,10 @@ namespace Aleph
                 {
                     // Hebrew
                     output = Converter.Hebrew(
-                                BigInteger.Parse(
+                                //BigInteger.Parse(
                                         input
-                                        ));
+                                        //)
+                                        );
 
                     VM.MainView.HebrewNumerals_Text = output;
                 }
