@@ -286,7 +286,7 @@ namespace Aleph
         // --------------------------------------------------
         // Font Size - Hebrew
         // --------------------------------------------------
-        public double _Hebrew_FontSize = 27;
+        public double _Hebrew_FontSize = 22 * 1.2;
         public double Hebrew_FontSize
         {
             get { return _Hebrew_FontSize; }
