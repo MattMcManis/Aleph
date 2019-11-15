@@ -102,7 +102,7 @@ namespace Aleph
             // Insert quotation mark before last character
             // -------------------------
             if (n > 10 &&  // Must be Greater than 10
-                n != 20 && // Is not a multiple of 10 (20-100)
+                n != 20 && // Is not a multiple of 10 (10-400)
                 n != 30 &&
                 n != 40 &&
                 n != 50 &&
