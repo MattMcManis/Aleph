@@ -59,7 +59,7 @@ namespace Aleph
                 result = result.Insert(0, numerals[multiplier, (int)digits[i]]);
 
                 // -------------------------
-                // Convert the next 3 digits
+                // Convert the thousands place digit
                 // -------------------------
                 if (multiplier == 3)
                 {
