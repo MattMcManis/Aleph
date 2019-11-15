@@ -267,7 +267,7 @@ namespace Aleph
         // --------------------------------------------------
         // Font Size - Arabic
         // --------------------------------------------------
-        public double _Arabic_FontSize;
+        public double _Arabic_FontSize = 22;
         public double Arabic_FontSize
         {
             get { return _Arabic_FontSize; }
@@ -286,7 +286,7 @@ namespace Aleph
         // --------------------------------------------------
         // Font Size - Hebrew
         // --------------------------------------------------
-        public double _Hebrew_FontSize;
+        public double _Hebrew_FontSize = 27;
         public double Hebrew_FontSize
         {
             get { return _Hebrew_FontSize; }
