@@ -57,7 +57,7 @@ namespace Aleph
             // -------------------------
             for (int i = 0; i < digits.Count; i++)
             {
-                // Append to front with Insert (don't use +=)
+                // Prepend to front with Insert (don't use +=)
                 result = result.Insert(0, numerals[multiplier, (int)digits[i]]);
 
                 // Convert the thousands place digit
@@ -79,6 +79,31 @@ namespace Aleph
             }
 
             // -------------------------
+            // Filter
+            // -------------------------
+            // Filter Number 15 if checkbox is checked
+            // If the last ones end in a 5 and the last tens end in a 10, (10+5) 15 י"ה, change to (9+6) ט"ו
+            // e.g. 150,315,816,167
+            if (VM.MainView.Filter_15_IsChecked == true)
+            { 
+                if (result.Contains("יה"))
+                {
+                    result = Regex.Replace(result, "(" + "יה" + ")", "טו");
+                }
+            }
+
+            // Filter Number 16 if checkbox is checked
+            // If the last ones end in a 6 and the last tens end in a 10, (10+6) 16 י"ו, change to (9+7) ט"ז
+            // e.g. 150,315,816,167
+            if (VM.MainView.Filter_16_IsChecked == true)
+            {
+                if (result.Contains("יו"))
+                {
+                    result = Regex.Replace(result, "(" + "יו" + ")", "טז");
+                }
+            }
+
+            // -------------------------
             // Insert quote " before last character
             // -------------------------
             if (result.Length > 1 &&  // Hebrew digit count must be greater than 1
@@ -86,20 +111,6 @@ namespace Aleph
                 )
             {
                 result = result.Insert(result.Length - 1, "\"");
-            }
-
-            // -------------------------
-            // Filter
-            // -------------------------
-            // Filter Number 15 if checkbox is checked
-            if (VM.MainView.Filter_15_IsChecked == true)
-            {
-                result = Filter_15(result);
-            }
-            // Filter Number 16 if checkbox is checked
-            if (VM.MainView.Filter_16_IsChecked == true)
-            {
-                result = Filter_16(result);
             }
 
             // -------------------------
@@ -115,67 +126,12 @@ namespace Aleph
         public static string[,] numerals = new string[,]
         {
             //0   1    2    3    4    5    6    7    8    9
-            {"", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", },      // x1
-            {"", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", },      // x10
+            {"", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט" },      // x1
+            {"", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ" },      // x10
             {"", "ק", "ר", "ש", "ת", "תק", "תר", "תש", "תת", "תתק" }, // x100
             {"׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳", "׳" }       // x1000
         };
 
-
-        /// <summary>
-        /// Filter - 15
-        /// </summary>
-        public static String Filter_15(string input)
-        {
-            // If the last ones end in a 5 and the last tens end in a 10, (10+5) 15 י"ה, change to (9+6) ט"ו
-            // e.g. 150,315,816,167
-
-            // -------------------------
-            // Replace regular occurances
-            // -------------------------
-            if (input.Contains("יה"))
-            {
-                input = Regex.Replace(input, "(" + "יה" + ")", "טו");
-            }
-
-            // -------------------------
-            // Replace Ending with quotation mark "
-            // -------------------------
-            if (input.EndsWith("י\"ה"))
-            {
-                input = Regex.Replace(input, "(" + "י\"ה" + ")", "ט\"ו");
-            }
-
-            return input;
-        }
-
-
-        /// <summary>
-        /// Filter - 16
-        /// </summary>
-        public static String Filter_16(string input)
-        {
-            // If the last ones end in a 6 and the last tens end in a 10, (10+6) 16 י"ו, change to (9+7) ט"ז
-            // e.g. 150,315,816,167
-
-            // -------------------------
-            // Replace regular occurances
-            // -------------------------
-            if (input.Contains("יו"))
-            {
-                input = Regex.Replace(input, "(" + "יו" + ")", "טז");
-            }
-
-            // -------------------------
-            // Replace Ending with quotation mark "
-            // -------------------------
-            if (input.EndsWith("י\"ו"))
-            {
-                input = Regex.Replace(input, "(" + "י\"ו" + ")", "ט\"ז");
-            }
-
-            return input;
-        }
 
     }
 }
